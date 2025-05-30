@@ -6,9 +6,12 @@ document.addEventListener('DOMContentLoaded', function () {
     const closeModal = document.getElementById('close-modal');
     const notesContainer = document.getElementById('music-notes');
     const playStoryBtn = document.getElementById('play-story-voice');
-    const storyAudio = document.getElementById('story-voice');
+    const storyAudio1 = document.getElementById('story-voice');
+    const storyAudio2 = document.getElementById('story-voice-2');
     const cs2Link = document.getElementById('cs2-link');
     const cs2Audio = document.getElementById('cs2-audio');
+
+    let currentStoryAudio = null; // Трек, який наразі грає
 
     document.addEventListener('click', (e) => {
         const ignoredTags = ['BUTTON', 'A', 'IMG'];
@@ -26,16 +29,13 @@ document.addEventListener('DOMContentLoaded', function () {
     osirisImg.addEventListener('click', (e) => {
         e.stopPropagation();
 
-        // Open modal
         osirisModal.style.display = 'block';
 
-        // Play Osiris music if not already playing
         if (osirisAudio.paused) {
             osirisAudio.volume = 0.8;
             osirisAudio.play().catch(() => {});
         }
 
-        // Show floating notes
         for (let i = 0; i < 10; i++) {
             createMusicNote();
         }
@@ -43,17 +43,22 @@ document.addEventListener('DOMContentLoaded', function () {
 
     closeModal.addEventListener('click', () => {
         osirisModal.style.display = 'none';
-        storyAudio.pause();
-        storyAudio.currentTime = 0;
+        if (currentStoryAudio) {
+            currentStoryAudio.pause();
+            currentStoryAudio.currentTime = 0;
+        }
     });
 
     playStoryBtn.addEventListener('click', () => {
-        if (storyAudio.paused) {
-            storyAudio.currentTime = 0;
-            storyAudio.volume = 0.9;
-            storyAudio.play().catch(() => {});
+        if (currentStoryAudio && !currentStoryAudio.paused) {
+            currentStoryAudio.pause();
+            currentStoryAudio.currentTime = 0;
+            currentStoryAudio = null;
         } else {
-            storyAudio.pause();
+            currentStoryAudio = Math.random() < 0.5 ? storyAudio1 : storyAudio2;
+            currentStoryAudio.currentTime = 0;
+            currentStoryAudio.volume = 0.9;
+            currentStoryAudio.play().catch(() => {});
         }
     });
 
