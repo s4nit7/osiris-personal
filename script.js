@@ -5,6 +5,10 @@ document.addEventListener('DOMContentLoaded', function () {
     const osirisModal = document.getElementById('osiris-modal');
     const closeModal = document.getElementById('close-modal');
     const notesContainer = document.getElementById('music-notes');
+    const playStoryBtn = document.getElementById('play-story-voice');
+    const storyAudio = document.getElementById('story-voice');
+    const cs2Link = document.getElementById('cs2-link');
+    const cs2Audio = document.getElementById('cs2-audio');
 
     document.addEventListener('click', (e) => {
         const ignoredTags = ['BUTTON', 'A', 'IMG'];
@@ -37,9 +41,26 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-
     closeModal.addEventListener('click', () => {
         osirisModal.style.display = 'none';
+        storyAudio.pause();
+        storyAudio.currentTime = 0;
+    });
+
+    playStoryBtn.addEventListener('click', () => {
+        if (storyAudio.paused) {
+            storyAudio.currentTime = 0;
+            storyAudio.volume = 0.9;
+            storyAudio.play().catch(() => {});
+        } else {
+            storyAudio.pause();
+        }
+    });
+
+    cs2Link.addEventListener('click', function (e) {
+        cs2Audio.currentTime = 0;
+        cs2Audio.volume = 0.6;
+        cs2Audio.play().catch(() => {});
     });
 
     function createMusicNote() {
@@ -54,13 +75,4 @@ document.addEventListener('DOMContentLoaded', function () {
             note.remove();
         }, 2000);
     }
-    const cs2Link = document.getElementById('cs2-link');
-    const cs2Audio = document.getElementById('cs2-audio');
-
-    cs2Link.addEventListener('click', function (e) {
-        // Play CS2 link sound only when clicked
-        cs2Audio.currentTime = 0;
-        cs2Audio.volume = 0.6;
-        cs2Audio.play().catch(() => {});
-    });
 });

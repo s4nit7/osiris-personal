@@ -317,3 +317,30 @@ img {
         transform: translateY(-100px) scale(1.5);
     }
 }
+#osiris-story {
+    margin-top: 20px;
+    text-align: left;
+    color: #fff3c2;
+    background: rgba(50, 50, 50, 0.005);
+    padding: 15px;
+    border-radius: 8px;
+    font-size: 1em;
+    line-height: 1.5;
+    box-shadow: 0 0 10px rgba(245, 196, 0, 0.45);
+}
+
+#play-story-voice {
+    margin-top: 15px;
+    background-color: #f5c400;
+    color: #0f0f0f;
+    border: none;
+    padding: 8px 16px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#play-story-voice:hover {
+    background-color: #d6a800;
+}
